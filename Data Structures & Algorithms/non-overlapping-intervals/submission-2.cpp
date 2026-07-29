@@ -1,21 +1,21 @@
 class Solution {
 public:
-    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+    int eraseOverlapIntervals(vector<vector<int>>& intervals) {
 
-        sort(intervals.begin(), intervals.end());
+        sort(intervals.begin(), intervals.end(),
+            [](vector<int>& a, vector<int>& b) {
+                return a[1] < b[1];
+            });
 
         vector<vector<int>> ans;
 
         for (auto &curr : intervals) {
 
-            if (ans.empty() || ans.back()[1] < curr[0]) {
+            if (ans.empty() || ans.back()[1] <= curr[0]) {
                 ans.push_back(curr);
-            }
-            else {
-                ans.back()[1] = max(ans.back()[1], curr[1]);
             }
         }
 
-        return ans;
+        return intervals.size() - ans.size();
     }
 };
