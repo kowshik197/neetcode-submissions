@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int change(int amount, vector<int>& coins) {
+
+        unordered_map<int,int> dp;
+
+        dp[0] = 1;
+
+        for(int coin : coins) {
+
+            for(int a = coin; a <= amount; a++) {
+
+                dp[a] += dp[a - coin];
+            }
+        }
+
+        return dp[amount];
+    }
+};
